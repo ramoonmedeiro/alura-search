@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/root
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.3
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=qA3w7SSiVaKxWsEQv1OSP3tlm618CZjvmfx5u0CDWrs
+      - MEILI_HTTP_PAYLOAD_SIZE_LIMIT=1048576000
+    volumes:
+      - ./meili_data:/meili_data
