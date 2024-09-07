@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineQuest - Resultados</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="search-header">
+        <h1 class="project-title-small">CineQuest</h1>
+        <div class="search-bar">
+            <input type="text" id="search" class="search-input" placeholder="Procure por filmes...">
+            <button class="search-button" id="search-button">Buscar</button>
+        </div>
+    </div>
+
+    <div class="search-results">
+        {% if results %}
+            <ul>
+                {% for result in results %}
+                    <li>
+                        <h2>{{ result.title }}</h2>
+                        <p>{{ result.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum resultado encontrado.</p>
+        {% endif %}
+    </div>
+    
+    <footer class="site-footer">
+        <p>&copy; 2024 CineQuest. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
+
