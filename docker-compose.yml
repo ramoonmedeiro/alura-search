@@ -4,20 +4,28 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: api/Dockerfile
     ports:
       - "8000:8000"
     volumes:
       - .:/root
     environment:
-      - PYTHONUNBUFFERED=1
+      MEILISEARCH_HOST: ${MEILISEARCH_HOST}
+      MEILISEARCH_API_KEY: ${MEILISEARCH_API_KEY}
+    networks:
+      - cine-quest-network
 
-  meilisearch:
-    image: getmeili/meilisearch:v1.3
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
     ports:
-      - "7700:7700"
-    environment:
-      - MEILI_MASTER_KEY=qA3w7SSiVaKxWsEQv1OSP3tlm618CZjvmfx5u0CDWrs
-      - MEILI_HTTP_PAYLOAD_SIZE_LIMIT=1048576000
+      - "5000:5000"
     volumes:
-      - ./meili_data:/meili_data
+      - .:/root
+    networks:
+      - cine-quest-network
+
+networks:
+  cine-quest-network:
+    driver: bridge

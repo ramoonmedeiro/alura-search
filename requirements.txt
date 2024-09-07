@@ -1,2 +1,8 @@
 fastapi==0.113.0
 uvicorn==0.30.6
+meilisearch==0.31.5
+Flask==3.0.3
+python-dotenv==1.0.1
+fastapi_cors==0.0.6
+Flask-Cors==5.0.0
+requests==2.32.3
