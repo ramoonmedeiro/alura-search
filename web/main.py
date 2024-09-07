@@ -1,27 +1,23 @@
 from flask import Flask, render_template, request
 from flask_cors import CORS
-from util import get_results_from_api
 
 
 app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/")
+@app.route("/", methods=["GET",])
 def homepage():
     return render_template("homepage.html")
 
 
-@app.route("/search")
+@app.route("/search", methods=["GET"])
 def search():
     search_query = request.args.get('q', '')
-    response = get_results_from_api(
-        search_term=search_query
-    )
+
     return render_template(
         "search.html",
-        search_query=search_query,
-        response=response
+        search_query=search_query
     )
 
 

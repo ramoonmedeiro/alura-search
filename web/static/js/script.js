@@ -1,83 +1,139 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const searchButton = document.querySelector(".search-button");
-    const searchInput = document.getElementById("search");
-    const resultsContainer = document.getElementById("results-container");
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get('q');
 
-    searchButton.addEventListener("click", function() {
-        const searchTerm = searchInput.value;
+    if (searchTerm) {
+        document.getElementById('search').value = searchTerm;
+        performSearch(searchTerm);
+    }
 
-        if (searchTerm) {
-            fetch("http://localhost:8000/search?page=0&items_per_page=10", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({ search_term: searchTerm })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Limpa os resultados anteriores
-                resultsContainer.innerHTML = '';
+    document.getElementById('search-button').addEventListener('click', function() {
+        const newSearchTerm = document.getElementById('search').value;
+        performSearch(newSearchTerm);
+    });
 
-                // Adiciona os novos resultados ao contêiner
-                const resultsHtml = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-                resultsContainer.innerHTML = resultsHtml;
-            })
-            .catch(error => {
-                console.error("Erro ao buscar dados:", error);
-            });
-        } else {
-            alert("Por favor, insira um termo de busca.");
+    document.getElementById('search').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            const newSearchTerm = document.getElementById('search').value;
+            performSearch(newSearchTerm);
         }
     });
 });
 
+function performSearch(searchTerm) {
+    fetch(`http://localhost:8000/search?page=0&items_per_page=14`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ search_term: searchTerm })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultsContainer = document.getElementById('results-container');
+        resultsContainer.innerHTML = '';
+
+        if (data && data.length > 0) {
+            displayResults(data);
+        } else {
+            resultsContainer.textContent = 'No results found';
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        document.getElementById('results-container').textContent = 'Error to find results.';
+    });
+}
+
 function displayResults(results) {
-    console.log('Resultados recebidos:', results); // Verifique se os dados estão corretos
     const container = document.getElementById('results-container');
     container.innerHTML = ''; // Limpa os resultados anteriores
 
     if (results.length === 0) {
-        container.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+        container.innerHTML = '<p>No results found.</p>';
         return;
     }
 
     const cardsContainer = document.createElement('div');
     cardsContainer.className = 'cards-container';
-    container.appendChild(cardsContainer);
 
     results.forEach(movie => {
-        console.log('Criando card para o filme:', movie); // Verifique cada filme
         const card = document.createElement('div');
         card.className = 'card';
+        card.dataset.id = movie.id; // Adiciona o ID do filme como um atributo de dados
 
         const img = document.createElement('img');
         img.src = movie.poster;
         img.alt = movie.title;
-        img.className = 'card-img'; // Adiciona uma classe para estilizar a imagem
-        card.appendChild(img);
+        img.className = 'card-image';
 
-        const cardContent = document.createElement('div');
-        cardContent.className = 'card-content';
-
-        const title = document.createElement('div');
-        title.className = 'card-title';
+        const title = document.createElement('h3');
         title.textContent = movie.title;
 
-        const genres = document.createElement('div');
-        genres.className = 'card-genres';
-        genres.textContent = `Gêneros: ${movie.genres.join(', ')}`;
-
-        const year = document.createElement('div');
-        year.className = 'card-year';
-        year.textContent = `Ano: ${new Date(movie.release_date * 1000).getFullYear()}`;
-
-        cardContent.appendChild(title);
-        cardContent.appendChild(genres);
-        cardContent.appendChild(year);
-        card.appendChild(cardContent);
-
+        card.appendChild(img);
+        card.appendChild(title);
         cardsContainer.appendChild(card);
+
+        // Adiciona o ouvinte de evento de clique ao cartão
+        card.addEventListener('click', function() {
+            fetchMovieDetails(movie.id);
+        });
     });
+
+    container.appendChild(cardsContainer);
+}
+
+function fetchMovieDetails(movieId) {
+    fetch(`http://localhost:8000/search_index?idx=${movieId}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        expandCard(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+}
+
+function expandCard(movie) {
+    const container = document.getElementById('results-container');
+    container.innerHTML = ''; // Limpa os resultados anteriores
+
+    const expandedCard = document.createElement('div');
+    expandedCard.className = 'expanded-card';
+
+    const closeButton = document.createElement('span');
+    closeButton.className = 'close-button';
+    closeButton.textContent = 'X';
+    closeButton.addEventListener('click', function() {
+        performSearch(document.getElementById('search').value);
+    });
+
+    const img = document.createElement('img');
+    img.src = movie.poster;
+    img.alt = movie.title;
+    img.className = 'expanded-card-image';
+
+    const title = document.createElement('h2');
+    title.textContent = movie.title;
+
+    const year = document.createElement('p');
+    const releaseDate = new Date(movie.release_date * 1000); // Converte a data de lançamento
+    year.textContent = `Year: ${releaseDate.getFullYear()}`;
+
+    const overview = document.createElement('p');
+    overview.textContent = movie.overview;
+
+    expandedCard.appendChild(closeButton);
+    expandedCard.appendChild(img);
+    expandedCard.appendChild(title);
+    expandedCard.appendChild(year);
+    expandedCard.appendChild(overview);
+
+    container.appendChild(expandedCard);
 }
