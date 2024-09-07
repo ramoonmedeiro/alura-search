@@ -37,7 +37,7 @@ Na imagem abaixo tem o pipeline de tecnologias utilizadas no projeto.
 O desafio consistia em fazer uma aplicação web, focada no frontend. Por isso o backend deste projeto é relativamente simples e não foi levado em conta todas as questões de segurança e performance que um projeto real necessitaria. Mas serviu como base para enriquecer o que o frontend poderia fazer.
 
 ## Como rodar o projeto
-O Projeto está acessível na página (colocar link).
+Muito em breve o projeto estará no ar, estou trabalhando o mais rápido possível nisso.
 
 Caso queira rodar localmente, basta ter o docker instalado e rodar o comando abaixo:
 
