@@ -6,6 +6,30 @@ Cinequest foi o início de um projeto maior que só veio a tona devido à compet
 
 ## Tecnologias
 
+As seguintes tecnologias foram utilizadas:
+- Front-end:
+  - HTML
+  - CSS
+  - JavaScript
+
+No front-end evitei usar frameworks prontos, para de fato me desafiar nas diversas features e elementos que css e html possuem.
+Criei a página homepage.html para apresentar a tela inicial já com o poder de busca acessível. E criei a página search.html, que
+era a página que os usuários são redirecionados quando executam de fato uma busca no sistema.
+O javascript auxiliou na dinamização do projeto, criação de cards dinâmicos por exemplo, e tbm na chamada da API, que foi criada e explicada abaixo 
+com o fastAPI.
+
+
+- Back-end:
+  - Python (FastAPI e Flask)
+  - Meilisearch
+
+Eu optei por utilizar um backend voltado a Python que é a minha linguagem principal.
+Ela é dividida em duas partes: WEB (criada com o flask) e API (criada com o fastAPI).
+O flask fica como servidor web, para acessarmos as páginas e controlar rotas.
+E a API serve dois endpoints, que trazem os resultados das buscas enviadas pelo usuário.
+E para isso, eu usei o meilisearch, que é uma ferramente que vem ganhando bastante espaço
+e na qual tenho bastante familiaridade.
+
 Na imagem abaixo tem o pipeline de tecnologias utilizadas no projeto.
 
 ![Pipeline de Tecnologias](pipeline.png)
@@ -20,3 +44,10 @@ Caso queira rodar localmente, basta ter o docker instalado e rodar o comando aba
 ```bash
 docker-compose up
 ```
+
+## Agradecimentos
+Gostaria de agradecer à equipe Alura por proporcionar esse desafio, onde pude explorar e me aventurar nesse
+"novo" mundo que é o front-end.
+
+## Palavras finais
+Este projeto foi criado em um pouco mais de um dia, então com o tempo irei atualizando ele.
