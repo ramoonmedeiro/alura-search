@@ -4,6 +4,17 @@
 CineQuest é uma aplicação web onde visa a busca de filmes, com a possibilidade de visualizar detalhes sobre o filme, como: sinopse e ano de lançamento.
 Cinequest foi o início de um projeto maior que só veio a tona devido à competição do time da Alura, na qual agradeço a inspiração e conteúdo ministrados na semana da imersão dev, sem isso, eu não conseguiria ter aprendido ferramentas como: html, css e javascript.
 
+
+## Onboarding
+A página inicial do projeto é a homepage.html, onde o usuário pode realizar a busca de filmes.
+![Pagina 1](imgs-repo/homepage.png)
+
+Suponha que pesquisamos o termo "resident", a página de resultados é a search.html, onde o usuário pode visualizar os filmes encontrados.
+![Pipeline de Tecnologias](imgs-repo/homepage2.png)
+
+Dentre as opções, o usuário poderá clicar em "Ver detalhes" para visualizar mais informações sobre o filme.
+![Pipeline de Tecnologias](imgs-repo/pipeline.png)
+
 ## Tecnologias
 
 As seguintes tecnologias foram utilizadas:
@@ -32,7 +43,7 @@ e na qual tenho bastante familiaridade.
 
 Na imagem abaixo tem o pipeline de tecnologias utilizadas no projeto.
 
-![Pipeline de Tecnologias](pipeline.png)
+![Pipeline de Tecnologias](imgs-repo/pipeline.png)
 
 O desafio consistia em fazer uma aplicação web, focada no frontend. Por isso o backend deste projeto é relativamente simples e não foi levado em conta todas as questões de segurança e performance que um projeto real necessitaria. Mas serviu como base para enriquecer o que o frontend poderia fazer.
 
