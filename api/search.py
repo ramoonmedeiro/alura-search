@@ -28,12 +28,6 @@ class SearchMeili:
 
         offset = page * items_per_page
         limit = items_per_page
-        print("\n\n\n\n\n")
-        print("*********************")
-        print(self.host)
-        print(self.api_key)
-        print("*********************")
-        print("\n\n\n\n\n")
         resp = self.client.index(self.index) \
             .search(
                 search_term,
@@ -43,3 +37,15 @@ class SearchMeili:
                 }
             )
         return resp["hits"]
+
+    def search_index(
+        self,
+        idx: int
+    ):
+
+        resp = self.client.index(self.index) \
+            .search('', {
+                'filter': f'id = {idx}',
+            })
+
+        return resp["hits"][0]

@@ -37,3 +37,11 @@ def search_term_requester(
     )
 
     return resp_search
+
+
+@router.get("/search_index")
+def search_index(idx: int):
+    sm = SearchMeili(index="movies")
+    resp = sm.search_index(idx=idx)
+
+    return resp
