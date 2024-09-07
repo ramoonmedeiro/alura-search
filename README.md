@@ -6,14 +6,18 @@ Cinequest foi o início de um projeto maior que só veio a tona devido à compet
 
 
 ## Onboarding
+
 A página inicial do projeto é a homepage.html, onde o usuário pode realizar a busca de filmes.
+
 ![Pagina 1](imgs-repo/homepage.png)
 
 Suponha que pesquisamos o termo "resident", a página de resultados é a search.html, onde o usuário pode visualizar os filmes encontrados.
-![Pipeline de Tecnologias](imgs-repo/homepage2.png)
+
+![Pagina 2](imgs-repo/homepage2.png)
 
 Dentre as opções, o usuário poderá clicar em "Ver detalhes" para visualizar mais informações sobre o filme.
-![Pipeline de Tecnologias](imgs-repo/pipeline.png)
+
+![Pagina 3](imgs-repo/homepage3.png)
 
 ## Tecnologias
 
